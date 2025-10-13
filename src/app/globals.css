@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: linear-gradient(to bottom, #2C2C2C, #000000);
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif; /* mudou aqui */
+  min-height: 100vh;
+  margin: 0;
+}
