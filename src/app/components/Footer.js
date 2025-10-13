@@ -9,42 +9,27 @@ export default function Footer() {
         {/* Botão de contato */}
         <button className="flex items-center justify-center border border-white rounded-full px-6 py-3 mx-auto mb-4 hover:bg-white hover:text-black transition">
         <PaperAirplaneIcon className="h-5 w-5 mr-2" />
+            <a href="https://wa.me/5511963241576?text=Ol%C3%A1%2C%20me%20interessei%20por%20seus%20trabalhos.">
+            ENTRAR EM CONTATO
 
-          ENTRAR EM CONTATO
+            </a>
         </button>
   
         {/* Ícones sociais */}
-        <div className="flex ">
-
-        <a href="#" className="hover:opacity-70">
-            <FontAwesomeIcon icon={faLinkedin} size="lg" />
-        </a>
-        <a href="#" className="hover:opacity-70">
-            <FontAwesomeIcon icon={faWhatsapp} size="lg" />
-        </a>
-        <a href="#" className="hover:opacity-70">
-            <FontAwesomeIcon icon={faInstagram} size="lg" />
-        </a>
-        <a href="#" className="hover:opacity-70">
-            <FontAwesomeIcon icon={faEnvelope} size="lg" />
-        </a>
-
-        </div>
-
-         {/* Círculos */}
+       
          <div className="flex justify-center gap-4 mb-6">
-         <div className="w-10 ">
+         <a className="w-10 " href="https://www.linkedin.com/in/gris-ayumi-mariano-3ab6791a2/?profileId=ACoAAC9w3fMBLCMPgQ47ejYQAint0x9n2TKhJys">
          <FontAwesomeIcon icon={faLinkedin} size="lg" />
-          </div>
-          <div className="w-10 ">
+          </a>
+          <a className="w-10 " href="https://wa.me/5511963241576?text=Ol%C3%A1%2C%20me%20interessei%20por%20seus%20trabalhos.">
           <FontAwesomeIcon icon={faWhatsapp} size="lg" />
-          </div>
-          <div className="w-10 ">
+          </a>
+          <a className="w-10 " href="https://www.instagram.com/gris.postonly/">
           <FontAwesomeIcon icon={faInstagram} size="lg" />
-          </div>
-          <div className="w-10 ">
+          </a>
+          <a className="w-10 " href="mailto:grispostonly@gmail.com?subject=grispostonly@gmail.com&body=grispostonly@gmail.com">
           <FontAwesomeIcon icon={faEnvelope} size="lg" />
-          </div>
+          </a>
         </div>
 
         <hr className="border-t border-white opacity-10 w-5/6 mx-auto my-6"/>
