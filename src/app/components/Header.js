@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { UserIcon, Squares2X2Icon, ChatBubbleLeftIcon, HomeIcon } from '@heroicons/react/24/outline';
 import Link from "next/link";
+import ScrollBackground from '../components/ScrollBackground';
 
 export default function Header() {
   const pathname = usePathname(); // pega a rota atual
@@ -24,7 +25,7 @@ export default function Header() {
             <Link
               key={item.id}
               href={item.href}
-              className={`bg-[#1d1d1d] px-4 py-2 rounded-lg flex items-center justify-center transition-all
+              className={`bg-[#140332] px-4 py-2 rounded-lg flex items-center justify-center transition-all
                 ${isActive ? "text-white bg-[#1a1a1a]" : "text-gray-400 hover:text-black hover:bg-amber-50"}`}
             >
               {isActive ? item.label : item.icon}
@@ -32,6 +33,7 @@ export default function Header() {
           );
         })}
       </nav>
+      <ScrollBackground />
 
       {/* Linha logo abaixo da nav */}
       <hr className="border-t border-white opacity-10 w-5/6 mx-auto my-6 mt-20" />

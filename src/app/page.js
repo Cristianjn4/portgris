@@ -1,7 +1,6 @@
 import Header from './components/Header';
 import Start from './components/Start';
 
-
 export const metadata = {
   title: 'Home | Portifólio Interativo'
 };
@@ -9,7 +8,7 @@ export const metadata = {
 export default function Home() {
   return (
     <main>
-    <Header />
+      <Header />
       <Start />
     </main>
   );
