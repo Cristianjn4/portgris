@@ -25,8 +25,8 @@ export default function Header() {
             <Link
               key={item.id}
               href={item.href}
-              className={`bg-[#140332] px-4 py-2 rounded-lg flex items-center justify-center transition-all
-                ${isActive ? "text-white bg-[#1a1a1a]" : "text-gray-400 hover:text-black hover:bg-amber-50"}`}
+              className={`bg-[#1c004d] px-4 py-2 rounded-lg flex items-center justify-center transition-all
+                ${isActive ? "text-white bg-[#2a0968]" : "text-gray-300 hover:text-black hover:bg-amber-50"}`}
             >
               {isActive ? item.label : item.icon}
             </Link>
