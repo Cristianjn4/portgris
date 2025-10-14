@@ -16,11 +16,14 @@ export default function Start() {
         </RevealRight>
 
         <RevealRight delay={0.4}>
-          <img
-            className="mx-auto h-48 rounded-full bg-white shadow-lg"
-            src="/STK-20251013-WA0064.webp"
-            alt="Imagem de boas-vindas"
-          />
+        <img
+  className="mx-auto h-48 w-48 rounded-full bg-white shadow-lg shadow-pink-500/30 
+             transform transition-transform duration-500 
+             hover:scale-105 hover:shadow-pink-500/70 
+             animate-[float_3s_ease-in-out_infinite]"
+  src="/STK-20251013-WA0064.webp"
+  alt="Imagem de boas-vindas"
+/>
         </RevealRight>
       </div>
     </main>

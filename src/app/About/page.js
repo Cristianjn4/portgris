@@ -1,14 +1,10 @@
-import Header from '../components/Header';
-
+import AboutContent from '../components/AboutContent'; // componente cliente
 
 export const metadata = {
-  title: 'Sobre | Conheça Gris'
+  title: 'About',
+  description: 'Sobre nós',
 };
 
 export default function About() {
-  return (
-    <main>
-    <Header />
-    </main>
-  );
+  return <AboutContent />;
 }
