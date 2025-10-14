@@ -19,7 +19,7 @@ export default function ScrollBackground() {
       style={{
         height: '80px',
         background: `rgba(255, 255, 255, ${opacity})`,
-        zIndex: 10,
+        zIndex: 20,
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
       }}
