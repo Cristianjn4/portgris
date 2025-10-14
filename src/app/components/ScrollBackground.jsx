@@ -10,16 +10,18 @@ export default function ScrollBackground() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Opacidade aumenta conforme scroll
-  const opacity = Math.min(scrollY / 200, 0.2);
+  // Faixa bem sutil: opacidade máxima 0.05
+  const opacity = Math.min(scrollY / 500, 0.05);
 
   return (
     <div
-      className="fixed top-0 left-0 w-full pointer-events-none"
+      className="fixed top-0 left-0 w-full pointer-events-none transition-opacity duration-300"
       style={{
         height: '80px',
         background: `rgba(255, 255, 255, ${opacity})`,
-        zIndex: 10, // acima do conteúdo
+        zIndex: 10,
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
       }}
     />
   );
