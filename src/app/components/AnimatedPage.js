@@ -1,34 +1,21 @@
 'use client';
 import { motion } from 'framer-motion';
-import { usePathname } from 'next/navigation';
-import { useRef } from 'react';
 
-const pageOrder = ['home', 'about', 'works', 'xet'];
-
-export default function AnimatedPage({ children }) {
-  const pathname = usePathname();
-  const lastPathRef = useRef(pathname);
-
-  // remove '/' inicial
-  const cleanPath = pathname.replace(/^\/+/, '') || 'home';
-  const cleanLast = lastPathRef.current.replace(/^\/+/, '') || 'home';
-
-  const lastIndex = pageOrder.indexOf(cleanLast);
-  const currentIndex = pageOrder.indexOf(cleanPath);
-
-  const direction = currentIndex > lastIndex ? 1 : -1;
-
-  lastPathRef.current = pathname;
-
+export default function AnimatedPage({ children, direction = 1 }) {
   const variants = {
-    hidden: (dir) => ({
-      x: dir > 0 ? 300 : -300,
+    initial: (direction) => ({
+      x: direction * 200,
       opacity: 0,
     }),
-    enter: { x: 0, opacity: 1 },
-    exit: (dir) => ({
-      x: dir > 0 ? -300 : 300,
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.4 },
+    },
+    exit: (direction) => ({
+      x: direction * -200,
       opacity: 0,
+      transition: { duration: 0.4 },
     }),
   };
 
@@ -36,10 +23,10 @@ export default function AnimatedPage({ children }) {
     <motion.div
       custom={direction}
       variants={variants}
-      initial="hidden"
-      animate="enter"
+      initial="initial"
+      animate="animate"
       exit="exit"
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className="w-full"
     >
       {children}
     </motion.div>
