@@ -18,8 +18,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt">
 
-     <body className="relative antialiased bg-[#0d0d0d] text-white min-h-screen overflow-hidden">
-        <Header />
+<body
+        className="
+          relative min-h-screen overflow-x-hidden text-white antialiased
+          bg-gradient-to-b from-[#0a0a0a] via-[#111629] to-[#1b2840]
+        "
+      >        <Header />
 
         <main className="relative z-10 flex-1">
           <AnimatedPage>{children}</AnimatedPage>
@@ -33,7 +37,7 @@ export default function RootLayout({ children }) {
         <motion.img
           src="/lua.png"
           alt="Lua"
-          className="fixed right-8 top-40 w-24 h-auto -z-20" // menor e mais à direita
+          className="fixed right-8 top-32 w-36 h-auto -z-20" // menor e mais à direita
           style={{ y: moonY, opacity: moonOpacity }}
         />
 
@@ -69,7 +73,11 @@ export default function RootLayout({ children }) {
           </motion.div>
         </div>
 
-        
+         {/* GRADIENTE */}
+        <div className="absolute bottom-0 w-full h-150 bg-gradient-to-b from-transparent to-[#5e0b35] -z-40" />
+        <div className="absolute top-0 w-full h-150 bg-gradient-to-b from-[#1d0023] to-transparent -z-40" />
+
+
 
       </body>
     </html>
