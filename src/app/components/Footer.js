@@ -5,7 +5,9 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 export default function Footer() {
     return (
-      <footer className=" bottom-0 w-full bg-gradient-to-b from-transparent to-[#5e0b2f] text-white p-8 text-center">
+      <main>
+      <footer className=" bottom-0 w-full text-white p-8 text-center z-10">
+
         {/* Botão de contato */}
         <button target="_blank" className="flex items-center justify-center border border-white rounded-full px-6 py-3 mx-auto mb-4 hover:bg-white hover:text-black transition">
         <PaperAirplaneIcon className="h-5 w-5 mr-2" />
@@ -14,6 +16,10 @@ export default function Footer() {
 
             </a>
         </button>
+
+        
+
+
   
         {/* Ícones sociais */}
        
@@ -48,9 +54,12 @@ export default function Footer() {
   
         {/* Créditos */}
         <p className="text-sm font-light opacity-70">
-          © 2025 | AYUMI, GRIS | JUNDIAÍ-SP
+          POTIFÓLIO INTERATIVO V0.2 © 2025 | AYUMI, GRIS | JUNDIAÍ-SP
         </p>
+        
       </footer>
+      </main> 
+
     );
   }
   

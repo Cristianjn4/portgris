@@ -52,9 +52,11 @@ export default function AboutContent() {
   };
 
   return (
-    <AnimatedPage>
+
+
+    <AnimatedPage className='relative isolate'>
       {/* Header */}
-      <div className="flex flex-col items-center justify-center px-4 sm:px-8 py-16 space-y-12 max-w-6xl mx-auto">
+      <div className="flex flex-col items-center justify-center px-4 sm:px-2 py-8 space-y-12 max-w-6xl mx-auto">
         <div className="flex items-center justify-center space-y-6 w-full sm:w-4/5 md:w-3/5">
           <motion.img
             src="/G2.webp"
@@ -70,18 +72,18 @@ export default function AboutContent() {
             QUEM <br /> É <br /> GRIS?
           </h1>
         </div>
-        <p className="max-w-3xl text-gray-300 text-center px-2 sm:px-0">
+        <p className="max-w-4xl text-gray-300 lg:text-center text-right px-2 sm:px-0">
           ✨ Gris Ayumi Mariano — designer e criadora multidisciplinar que une arte, tecnologia e emoção para transformar ideias em experiências visuais autênticas e sensíveis.
         </p>
       </div>
 
-      {/* Grid de cards */}
-      <div className="flex flex-col items-center justify-center px-4 sm:px-8 py-16 space-y-12 max-w-6xl mx-auto">
+      {/* Grid de cards DESKTOP */}
+        <div className="hidden md:flex flex-col items-center justify-center px-4 sm:px-8 py-16 space-y-12 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 w-full max-w-6xl px-2 sm:px-0 items-stretch">
           {/* CARD 1 */}
           <motion.div className="z-10 relative bg-white rounded-xl p-6 overflow-visible shadow-md flex flex-col justify-between h-full" variants={cardVariants} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0 }}>
             <p className="text-black mt-2 pr-[35%]">
-🌙 Sou Gris Ayumi, designer e desenvolvedora front-end que acredita que o design é, antes de tudo, uma forma de comunicação emocional. Gosto de pensar que cada projeto é um espaço para contar histórias, despertar sensações e criar experiências que toquem as pessoas — mesmo nas coisas simples, como um botão bem posicionado ou uma paleta que respira calma.
+            🌙 Sou Gris Ayumi, designer e desenvolvedora front-end que acredita que o design é, antes de tudo, uma forma de comunicação emocional. Gosto de pensar que cada projeto é um espaço para contar histórias, despertar sensações e criar experiências que toquem as pessoas — mesmo nas coisas simples, como um botão bem posicionado ou uma paleta que respira calma.
             </p>
             <motion.img src="/G3.webp" alt="Imagem 1" className=" absolute right-[-150px] bottom-0 w-100 h-auto rounded-2xl object-cover" initial={{ opacity: 0, y: 20 }} whileHover={{ scale: 1.05 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} />
           </motion.div>
@@ -110,6 +112,52 @@ Domino o ecossistema Adobe Creative Cloud (Photoshop, Illustrator, After Effects
             <h2 className="text-xl text-center text-white font-bold mb-2">NOTAS</h2>
             <p className="text-white text-center">
 Acredito em criar com propósito, sentir antes de executar e ouvir antes de desenhar. Meu trabalho é, em essência, uma tentativa de equilibrar estética, acessibilidade e afeto — porque pra mim, design é o espaço onde a técnica encontra o humano.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Grid de cards MOBILE */}
+      <div className="flex lg:hidden flex-col items-center justify-center px-4 sm:px-8 py-16 space-y-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 w-full max-w-6xl px-2 sm:px-0 items-stretch">
+          {/* CARD 1 */}
+          <motion.div className="z-10 relative bg-white rounded-xl p-4 overflow-visible shadow-md flex flex-col justify-between h-full" variants={cardVariants} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0 }}>
+            <p className="text-black mt-2 text-justify">
+            🌙 Sou Gris Ayumi, designer e desenvolvedora front-end que acredita que o design é, antes de tudo, uma forma de comunicação emocional. Gosto de pensar que cada projeto é um espaço para contar histórias,
+            </p>
+            <p className="text-black mt-2 pr-[35%]">
+            despertar sensações e criar experiências que toquem as pessoas — mesmo nas coisas simples, como um botão bem posicionado ou uma paleta que respira calma.
+            </p>
+            <motion.img src="/G3.webp" alt="Imagem 1" className=" absolute right-[-150px] bottom-0 w-100 h-auto rounded-2xl object-cover" initial={{ opacity: 0, y: 20 }} whileHover={{ scale: 1.05 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} />
+          </motion.div>
+
+          {/* CARD 2 */}
+          <motion.div className="relative bg-[#ffffff1d] rounded-xl shadow-md flex flex-col justify-center items-center h-full p-4" variants={cardVariants} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.2 }}>
+            <div className="flex flex-col justify-center items-center h-full w-full">
+              <h2 className="text-xl text-center text-white font-bold mb-2">COMPETÊNCIAS</h2>
+              <p className="text-white text-center">
+                Domino o ecossistema Adobe Creative Cloud (Photoshop, Illustrator, After Effects, Premiere, InDesign) e ferramentas de desenvolvimento web como JavaScript (ES6+), TypeScript, React.js, Next.js, Tailwind CSS, HTML5, CSS3, Git, APIs RESTful e GraphQL. Gosto de trabalhar com interfaces limpas, animações sutis e fluxos intuitivos — pequenos detalhes que fazem toda a diferença.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* CARD 3 */}
+          <motion.div className="relative z-10 bg-white rounded-xl p-4 overflow-visible shadow-md flex flex-col justify-between h-full" variants={cardVariants} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.3 }}>
+            <h2 className="text-xl text-center invisible sm:block text-black font-bold mb-2">DESIGN & EMOÇÃO</h2>
+            <p className="text-black mt-2 text-justify">
+              💡 Gosto de pensar o design como um equilíbrio entre propósito e emoção. Trabalho com identidade visual, branding, UI/UX, motion e marketing digital, sempre com o foco em construir narrativas visuais
+            </p>
+            <p className="text-black mt-2 pl-[40%] text-right">
+              consistentes e humanas. Acredito que o visual ideal é aquele que se comunica com clareza, mas também deixa espaço para sentir.
+            </p>
+            <motion.img src="/G4.webp" alt="Imagem 2" className="absolute left-[-120px] lg:left-[-150px] bottom-0 w-100 h-auto rounded-2xl object-cover" initial={{ opacity: 0, y: 20 }} whileHover={{ scale: 1.05 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }} />
+          </motion.div>
+
+          {/* CARD 4 */}
+          <motion.div className="relative bg-[#ffffff1d] rounded-xl shadow-md flex flex-col justify-center items-center h-full p-4" variants={cardVariants} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.3 }}>
+            <h2 className="text-xl text-center text-white font-bold mb-2">NOTAS</h2>
+            <p className="text-white text-center">
+              Acredito em criar com propósito, sentir antes de executar e ouvir antes de desenhar. Meu trabalho é, em essência, uma tentativa de equilibrar estética, acessibilidade e afeto — porque pra mim, design é o espaço onde a técnica encontra o humano.
             </p>
           </motion.div>
         </div>
@@ -267,35 +315,37 @@ Acredito em criar com propósito, sentir antes de executar e ouvir antes de dese
       </div>
 
       {/* Botão de contato */} <button target="_blank" className="flex items-center justify-center border border-white rounded-full px-6 py-3 mx-auto m-2 hover:bg-white hover:text-black transition"> <PaperAirplaneIcon className="h-5 w-5 mr-2" /> <a target="_blank" href="https://wa.me/5511963241576?text=Ol%C3%A1%2C%20me%20interessei%20por%20seus%20trabalhos."> SABER MAIS </a> </button> {/* Final da página */} <div className="flex flex-col items-center mt-24 text-center"> <p className="text-white text-8xl font-black mt-2">THA<br />NK-<br />YOU</p> <motion.img src="/G6-1.webp" alt="Imagem Final" className="w-full sm:w-[300px] object-cover rounded-t-xl mx-auto mt-8" initial={{ scale: 1 }} whileHover={{ scale: 1.05 }} transition={{ duration: 0.5, ease: 'easeOut' }} /> </div>
+     {/* === NOVO POPUP CENTRALIZADO === */}
+<AnimatePresence>
+  {showPopup && activeIndex !== null && (
+    <motion.div
+      className="fixed pt-20 px-10 inset-0 z-50 isolate flex items-center justify-center bg-black/50 overflow-auto"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="relative  w-full lg:w-200 m-auto sm:m-6 p-6 bg-white rounded-xl shadow-lg"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+      >
+        <button
+          className="absolute top-4 right-4 text-gray-600 hover:text-red-900 font-bold text-3xl"
+          onClick={() => setShowPopup(false)}
+        >
+          ×
+        </button>
 
-      {/* === NOVO POPUP CENTRALIZADO === */}
-      <AnimatePresence>
-        {showPopup && activeIndex !== null && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="relative w-80 sm:w-96 p-6 bg-white rounded-xl shadow-lg"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-            >
-              <button
-                className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 font-bold text-xl"
-                onClick={() => setShowPopup(false)}
-              >
-                ×
-              </button>
+        <h3 className="font-bold text-black text-lg mb-2">
+          {timelineItems[activeIndex].title}
+        </h3>
+        <p className="text-gray-700">{timelineItems[activeIndex].description}</p>
+      </motion.div>
+    </motion.div>
+  )}
+    </AnimatePresence>
 
-              <h3 className="font-bold text-black text-lg mb-2">{timelineItems[activeIndex].title}</h3>
-              <p className="text-gray-700">{timelineItems[activeIndex].description}</p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </AnimatedPage>
   );
 }

@@ -15,7 +15,7 @@ export default function ScrollBackground() {
 
   return (
     <div
-      className="fixed top-0 left-0 w-full pointer-events-none transition-opacity duration-200"
+      className="fixed top-0 left-0 w-full pointer-events-none transition-opacity duration-200 "
       style={{
         height: '80px',
         background: `rgba(255, 255, 255, ${opacity})`,
