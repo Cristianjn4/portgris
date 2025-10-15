@@ -23,15 +23,15 @@ export default function Header() {
       </div>
 
       {/* === Navegação === */}
-      <nav className="flex space-x-2 font-bold fixed top-4 z-20 isolate">
+      <nav className="flex space-x-2 font-bold fixed top-4 z-40 ">
         {navItems.map((item) => {
           const isActive = pathname.toLowerCase() === item.href.toLowerCase();
           return (
             <Link
               key={item.id}
               href={item.href}
-              className={`bg-[#2600419b] px-4 py-2 rounded-lg flex items-center justify-center transition-all
-                ${isActive ? "text-white bg-[#270763]" : "text-gray-300 hover:text-black hover:bg-amber-50"}`}
+              className={`bg-[#2600417a] px-4 py-2 rounded-lg flex items-center justify-center transition-all
+                ${isActive ? "text-white bg-[#5900ff]" : "text-gray-300 hover:text-black hover:bg-amber-50"}`}
             >
               {isActive ? item.label : item.icon}
             </Link>

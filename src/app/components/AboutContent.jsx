@@ -34,7 +34,7 @@ export default function AboutContent() {
     { title: '1º projeto — ReadMee! (TCC — ETEC)', date: '2022', 
       description: 'Durante o curso técnico, desenvolvi o projeto ReadMee! – Clube para Compartilhamento de Conteúdo Literário, meu Trabalho de Conclusão de Curso. A plataforma foi criada com o objetivo de democratizar o acesso à leitura e permitir que usuários compartilhassem contos, poesias, resenhas e resumos com o público. Além da publicação, o site incluía recursos de seguidores, inscrições mensais, estatísticas, conquistas, anúncios e dark mode. Mais do que um projeto técnico, o ReadMee! representou uma inovação social, ao conectar autores independentes a leitores e valorizar a produção literária de forma inclusiva e acessível. “ReadMee! me mostrou o quanto design e tecnologia podem ser agentes reais de inclusão e transformação.”',
       image: '/logor.png' },
-    { title: 'Universidad e— UNINTER e DWGA Soluções Plásticas', date: '2023', 
+    { title: 'Universidade — UNINTER e DWGA Soluções Plásticas', date: '2023', 
       description: 'Em 2023 iniciei o curso de Análise e Desenvolvimento de Sistemas no Centro Universitário Internacional UNINTER, ampliando meu domínio sobre lógica, banco de dados e arquitetura de software. No mesmo período, atuei como Designer Gráfica na DWGA Soluções Plásticas, onde desenvolvi materiais físicos e digitais, campanhas de marketing e layouts institucionais. Trabalhei com otimização de conteúdo visual, tráfego pago e estratégias de branding, integrando design, tecnologia e comunicação em soluções reais para o mercado corporativo.', 
       image: '/uninter.png' },
     { title: 'Design is my Passion — Casa Orner e UNIANCHIETA', date: '2024', 
@@ -179,6 +179,17 @@ Acredito em criar com propósito, sentir antes de executar e ouvir antes de dese
         <h2 className="relative z-10 lg:text-50 text-5xl  md:text-9xl font-extrabold text-white text-center tracking-widest drop-shadow-lg text-shadow-pink-500 text-shadow-lg">CARREIRA</h2>
       </div>
 
+      <div className="max-w-5xl mx-auto px-4 sm:px-0 text-center lg:text-left">
+  <h2 className="text-3xl lg:text-4xl font-extrabold text-white mb-4">
+    Minha Jornada Criativa
+  </h2>
+  <p className="text-white text-lg lg:text-xl leading-relaxed text-justify">
+    De 2018 a 2025, eu, Gris Ayumi Mariano, desenvolvi minha carreira em audiovisual, design e tecnologia, criando projetos como ReadMee! e Hanni Yummi Café, atuando em design gráfico, marketing digital e educação, e consolidando minha identidade visual e sensibilidade estética. 10 negócios foram tranformados com minhas criações e centenas de peças foram produzidas e publicadas, melhorando e evoluindo a cominicação de empresas tranto organicamente quanto no meio digital!
+  </p>
+</div>
+
+
+
       {/* TIMELINE RESPONSIVA */}
       <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-8 py-16 flex flex-col items-center">
         {/* === DESKTOP: Linha horizontal === */}
@@ -246,6 +257,8 @@ Acredito em criar com propósito, sentir antes de executar e ouvir antes de dese
             })}
           </div>
         </div>
+
+        
 
         {/* === MOBILE: Linha vertical === */}
         <div className="flex sm:hidden flex-col items-center relative w-[4px] min-h-[600px]">
@@ -315,6 +328,16 @@ Acredito em criar com propósito, sentir antes de executar e ouvir antes de dese
       </div>
 
       {/* Botão de contato */} <button target="_blank" className="flex items-center justify-center border border-white rounded-full px-6 py-3 mx-auto m-2 hover:bg-white hover:text-black transition"> <PaperAirplaneIcon className="h-5 w-5 mr-2" /> <a target="_blank" href="https://wa.me/5511963241576?text=Ol%C3%A1%2C%20me%20interessei%20por%20seus%20trabalhos."> SABER MAIS </a> </button> {/* Final da página */} <div className="flex flex-col items-center mt-24 text-center"> <p className="text-white text-8xl font-black mt-2">THA<br />NK-<br />YOU</p> <motion.img src="/G6-1.webp" alt="Imagem Final" className="w-full sm:w-[300px] object-cover rounded-t-xl mx-auto mt-8" initial={{ scale: 1 }} whileHover={{ scale: 1.05 }} transition={{ duration: 0.5, ease: 'easeOut' }} /> </div>
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      {/* === NOVO POPUP CENTRALIZADO === */}
 <AnimatePresence>
   {showPopup && activeIndex !== null && (
