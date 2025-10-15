@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
         />
 
         {/* === CÉU - movimento horizontal contínuo e lento === */}
-        <div className="absolute top-0 left-0 w-[200%] h-auto overflow-hidden opacity-40 -z-10">
+        <div className="absolute top-10 left-0 lg:w-[200%] w-[400%] h-auto overflow-hidden opacity-40 -z-10">
           <motion.div
             className="flex"
             animate={{ x: ['0%', '10%'] }}
@@ -58,7 +58,7 @@ export default function RootLayout({ children }) {
         </div>
 
         {/* === FUNDO - movimento horizontal contínuo, mais rápido === */}
-        <div className="absolute bottom-0 left-0 w-[200%] h-auto overflow-hidden -z-10">
+        <div className="absolute bottom-0 left-0 lg:w-[200%] w-[500%] h-auto overflow-hidden -z-10">
           <motion.div
             className="flex"
             animate={{ x: ['0%', '-20%'] }}
