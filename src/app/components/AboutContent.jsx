@@ -184,7 +184,7 @@ Acredito em criar com propósito, sentir antes de executar e ouvir antes de dese
     Minha Jornada Criativa
   </h2>
   <p className="text-white text-lg lg:text-xl leading-relaxed text-justify">
-    De 2018 a 2025, eu, Gris Ayumi Mariano, desenvolvi minha carreira em audiovisual, design e tecnologia, criando projetos como ReadMee! e Hanni Yummi Café, atuando em design gráfico, marketing digital e educação, e consolidando minha identidade visual e sensibilidade estética. 10 negócios foram tranformados com minhas criações e centenas de peças foram produzidas e publicadas, melhorando e evoluindo a cominicação de empresas tranto organicamente quanto no meio digital!
+    De 2018 a 2025, eu, Gris Ayumi Mariano, desenvolvi minha carreira em audiovisual, design e tecnologia, criando projetos como ReadMee! e Hanni Yummi Café, atuando em design gráfico, marketing digital e educação, e consolidando minha identidade visual e sensibilidade estética. 10 negócios foram tranformados com minhas criações e centenas de peças foram produzidas e publicadas, melhorando e evoluindo a comuicação de empresas tranto organicamente quanto no meio digital!
   </p>
 </div>
 
