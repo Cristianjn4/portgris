@@ -21,7 +21,6 @@ export default function RootLayout({ children }) {
 <body
         className="
           relative min-h-screen overflow-x-hidden text-white antialiased
-          bg-gradient-to-b from-[#0a0a0a] via-[#111629] to-[#1b2840]
         "
       >        <Header />
 
@@ -74,8 +73,10 @@ export default function RootLayout({ children }) {
         </div>
 
          {/* GRADIENTE */}
-        <div className="absolute bottom-0 w-full h-150 bg-gradient-to-b from-transparent to-[#5e0b35] -z-40" />
-        <div className="absolute top-0 w-full h-150 bg-gradient-to-b from-[#1d0023] to-transparent -z-40" />
+        <div className="absolute bottom-0 w-full h-30 bg-gradient-to-b from-transparent to-[#ff00002a] -z-10" />
+        <div className="absolute bottom-0 w-full h-80 bg-gradient-to-b from-transparent to-[#dc4906] -z-50" />        
+        <div className="absolute bottom-0 w-full h-120 bg-gradient-to-b from-transparent to-[#8e063a] -z-40" />
+        <div className="absolute top-0 w-full h-50 bg-gradient-to-b from-[#24002488] to-transparent -z-10" />
 
 
 
