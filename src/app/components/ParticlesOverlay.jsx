@@ -17,7 +17,7 @@ export default function ParticlesOverlay() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50">
+    <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10">
       {particles.map((p) => (
         <div
           key={p.id}
