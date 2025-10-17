@@ -79,7 +79,7 @@ export default function RatingCount() {
           <p className="text-white font-medium mb-2">Feedbacks dos usuários:</p>
           <ul className="list-none space-y-2 max-h-64 overflow-y-auto">
             {feedbacks.map((f, idx) => (
-              <li key={idx} className="p-2 bg-gray-50 rounded-lg shadow-sm flex flex-col">
+              <li key={idx} className="p-2 bg-gray-50 rounded-lg shadow-sm flex flex-colo overflow-hidden">
                 <span className="text-gray-400 text-xs mb-1">{formatDate(f.created_at)}</span>
                 <div className="flex gap-1 mb-1">{renderFeedbackStars(f.rating)}</div>
                 <p className="text-gray-700">{f.feedback}</p>
