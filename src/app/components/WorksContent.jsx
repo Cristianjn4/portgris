@@ -17,6 +17,13 @@ export default function WorksContent() {
     { prefix: 'sc', title: 'Scatt Bikes', qty: 2, format: 'jpg' },
   ];
 
+  const bannersData = [
+    { prefix: 'or', title: 'Casa Orner', qty: 10, format: 'png' },
+    { prefix: 'sn', title: 'Simmons', qty: 9, format: 'jpg' },
+    { prefix: 'rt', title: 'Restonic', qty: 4, format: 'png' },
+    { prefix: 'hs', title: 'Hashtag Academia', qty: 1, format: 'png' },
+  ];
+
   const scrollRefs = useRef([]);
   const [popup, setPopup] = useState({ open: false, src: '', alt: '' });
 
@@ -43,12 +50,14 @@ export default function WorksContent() {
     let targetId = '';
     if (cat === 'Logos') targetId = 'logos';
     else if (cat === 'Postagens') targetId = 'postagens';
+    else if (cat === 'Banners') targetId = 'banners';
     const section = document.getElementById(targetId);
     if (section) section.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <main className="lg:mt-14 mt-0 w-full overflow-x-hidden">
+
       {/* === HEADER === */}
       <section className="relative lg:bg-gradient-to-b from-transparent to-[#ffffff1d] h-[14rem] sm:h-[20rem] md:h-[24rem] py-16 sm:py-24 text-center overflow-visible">
         <motion.img
@@ -91,30 +100,19 @@ export default function WorksContent() {
 
       {/* === LOGOTIPOS === */}
       <section id="logos" className="w-full text-center py-20 rounded-b-4xl">
-        <h2 className="text-white text-2xl font-bold tracking-widest mb-10">
-          LOGOTIPOS
-        </h2>
-
+        <h2 className="text-white text-2xl font-bold tracking-widest mb-10">LOGOTIPOS</h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6 justify-items-center max-w-5xl mx-auto mb-10 px-6">
-          {[
-            'ard.png','dsk.jpg','fty.png','hnn.png','htg.png',
-            'orn.png','red.jpg','rst1.png','sin.png','logom.png'
-          ].map((logo, i) => (
+          {['ard.png','dsk.jpg','fty.png','hnn.png','htg.png','orn.png','red.jpg','rst1.png','sin.png','logom.png'].map((logo, i) => (
             <div
               key={i}
-              className="w-20 h-20 md:w-24 md:h-24 bg-transparent rounded-full overflow-hidden flex items-center justify-center shadow-lg relative cursor-pointer"
+              className="w-20 h-20 md:w-24 md:h-24 bg-transparent rounded-full overflow-hidden flex items-center justify-center shadow-lg relative cursor-pointer transition-transform duration-300 hover:scale-105"
               onClick={() => openPopup(`/logos/${logo}`, `Logo ${logo}`)}
             >
-              <img
-                src={`/logos/${logo}`}
-                alt={`Logo ${logo}`}
-                className="w-full h-full object-cover"
-              />
+              <img src={`/logos/${logo}`} alt={`Logo ${logo}`} className="w-full h-full object-cover" />
               <ZoomIn className="absolute top-1 right-1 w-5 h-5 text-white opacity-80" />
             </div>
           ))}
         </div>
-
         <a
           href="https://drive.google.com/drive/folders/1vZ6mK0DOgmeG5-SV5y6fbHYtyPmxv9Sp?usp=sharing"
           target="_blank"
@@ -127,14 +125,10 @@ export default function WorksContent() {
 
       {/* === POSTAGENS DINÂMICAS === */}
       <section id="postagens" className="w-full text-center rounded-b-4xl">
-        <h2 className="text-white text-2xl font-bold tracking-widest mb-10">
-          POSTAGENS
-        </h2>
+        <h2 className="text-white text-2xl font-bold tracking-widest mb-10">POSTAGENS</h2>
         {postsData.map(({ prefix, title, qty, format }, index) => (
           <div key={index} className="mb-16 px-6 relative">
-            <h3 className="text-white text-lg font-semibold mb-4">
-              {title} ({qty})
-            </h3>
+            <h3 className="text-white text-lg font-semibold mb-4">{title} ({qty})</h3>
 
             <button
               onClick={() => scroll(index, 'left')}
@@ -158,21 +152,64 @@ export default function WorksContent() {
                 return (
                   <div
                     key={i}
-                    className="snap-center flex-shrink-0 bg-[#1A0026]/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] p-4 transition-all duration-500 inline-flex flex-col items-center cursor-pointer relative"
+                    className="snap-center flex-shrink-0 bg-[#1A0026]/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] p-4 transition-transform duration-300 hover:scale-105 inline-flex flex-col items-center cursor-pointer relative"
                     onClick={() => openPopup(src, `${title} ${i + 1}`)}
                   >
-                    <img
-                      src={src}
-                      alt={`${title} ${i + 1}`}
-                      className="rounded-xl w-auto h-40 max-w-full object-cover"
-                    />
+                    <img src={src} alt={`${title} ${i + 1}`} className="rounded-xl w-40 h-40 max-w-full object-cover" />
                     <ZoomIn className="absolute top-2 right-2 w-5 h-5 text-white opacity-80" />
-                    <h3 className="font-semibold mt-4 text-white">
-                      {title} {i + 1}
-                    </h3>
-                    <p className="text-sm text-gray-300 mt-2">
-                      Projeto realizado para {title}.
-                    </p>
+                    <h3 className="font-semibold mt-4 text-white">{title} {i + 1}</h3>
+                    <p className="text-sm text-gray-300 mt-2">Projeto realizado para {title}.</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+        <a
+          href="https://drive.google.com/drive/folders/1DTqEBr_TUlvTRCT7GHzJ6C4S68G-RX88?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white border border-white rounded-full px-6 py-2 mb-10 hover:bg-white hover:text-[#0B0018] transition inline-block text-center"
+        >
+          VER MAIS
+        </a>
+      </section>
+
+      {/* === BANNERS DINÂMICOS === */}
+      <section id="banners" className="w-full text-center rounded-b-4xl">
+        <h2 className="text-white text-2xl font-bold tracking-widest my-10">BANNERS E ARTES</h2>
+        {bannersData.map(({ prefix, title, qty, format }, index) => (
+          <div key={index} className="mb-16 px-6 relative">
+            <h3 className="text-white text-lg font-semibold mb-4">{title} ({qty})</h3>
+
+            <button
+              onClick={() => scroll(index + 100, 'left')} // offset ref
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full z-20"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={() => scroll(index + 100, 'right')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full z-20"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            <div
+              ref={(el) => (scrollRefs.current[index + 100] = el)}
+              className="flex gap-6 pb-4 snap-x snap-mandatory scroll-smooth overflow-hidden"
+            >
+              {Array.from({ length: qty }).map((_, i) => {
+                const src = `/banners/${prefix}${i + 1}.${format}`;
+                return (
+                  <div
+                    key={i}
+                    className="snap-center flex-shrink-0 bg-[#1A0026]/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] p-4 transition-transform duration-300 hover:scale-105 inline-flex flex-col items-center cursor-pointer relative"
+                    onClick={() => openPopup(src, `${title} ${i + 1}`)}
+                  >
+                    <img src={src} alt={`${title} ${i + 1}`} className="rounded-xl w-40 h-40 object-cover" />
+                    <ZoomIn className="absolute top-2 right-2 w-5 h-5 text-white opacity-80" />
+                    <h3 className="font-semibold mt-4 text-white">{title} {i + 1}</h3>
                   </div>
                 );
               })}
@@ -227,18 +264,16 @@ export default function WorksContent() {
 
       {/* === FOOTER === */}
       <footer className="bg-gradient-to-br e to-stone-400 max-w-md mx-auto shadow-lg rounded-2xl p-6 flex flex-col items-center text-center mt-16">
-  <h3 className="font-semibold text-white">OBRIGADA POR CHEGAR ATÉ AQUI 🌙</h3>
-  <p className="text-white text-sm mb-4">
-    Veja todos os trabalhos no meu portfólio completo.
-  </p>
-  <a
-    className="w-auto px-6 py-2 border font-medium border-white bg-pink-600 rounded-full hover:bg-[#3e1a58] transition"
-    href="https://drive.google.com/drive/folders/1TCRWErYp-pcSi8GbOOaFM50Oh2LDXSk-?usp=drive_link"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    VER MAIS
-  </a>
+        <h3 className="font-semibold text-white">OBRIGADA POR CHEGAR ATÉ AQUI 🌙</h3>
+        <p className="text-white text-sm mb-4">Veja todos os trabalhos no meu portfólio completo.</p>
+        <a
+          className="w-auto px-6 py-2 border font-medium border-white bg-pink-600 rounded-full hover:bg-[#3e1a58] transition"
+          href="https://drive.google.com/drive/folders/1pHJpqZrce4zEEsq5NDDyBr-v7LwE08N_?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          VER MAIS
+        </a>
       </footer>
     </main>
   );
