@@ -1,12 +1,10 @@
-'use client';
-import React from 'react';
-import AdminDashboard from '../components/AdminDashboard';
+import WorksContent from '../components/WorksContent.jsx'; // componente cliente
 
-export default function Adm() {
-  return (
-    <div style={{ padding: '1rem' }}>
-      <h1>Dashboard Admin</h1>
-      <AdminDashboard />
-    </div>
-  );
+export const metadata = {
+  title: 'Works',
+  description: 'Trabalhos',
+};
+
+export default function Works() {
+  return <WorksContent />;
 }
