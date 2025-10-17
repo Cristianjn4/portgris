@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from './supabaseClient';
 import { v4 as uuidv4 } from 'uuid';
+import Image from 'next/image'; // Importa Image do Next.js
 
 export default function TempChatWidget() {
   const [nome, setNome] = useState('');
@@ -17,11 +18,24 @@ export default function TempChatWidget() {
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); };
   useEffect(scrollToBottom, [messages]);
 
+  // Recupera sessionId persistente
+  useEffect(() => {
+    const savedSession = localStorage.getItem('chatSessionId');
+    if (savedSession) {
+      setSessionId(savedSession);
+      setStarted(true);
+    }
+  }, []);
+
   // Verifica status do admin
   useEffect(() => {
     const fetchStatus = async () => {
-      const { data } = await supabase.from('admin_status').select('*').eq('id', 1).single();
-      setAdminOnline(data?.online || false);
+      const { data, error } = await supabase
+        .from('admin_status')
+        .select('*')
+        .eq('id', 1)
+        .single();
+      if (!error) setAdminOnline(data?.online || false);
     };
     fetchStatus();
 
@@ -35,25 +49,32 @@ export default function TempChatWidget() {
     return () => supabase.removeChannel(sub);
   }, []);
 
-  // Observa mensagens
+  // Observa mensagens do usuário
   useEffect(() => {
     if (!sessionId) return;
 
     const fetchMessages = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('messages')
         .select('*')
         .eq('session_id', sessionId)
         .order('criado_em', { ascending: true });
-      setMessages(data);
+
+      if (!error) setMessages(data.filter(m => !m.resposta) || []);
     };
     fetchMessages();
 
     const sub = supabase
       .channel(`messages-${sessionId}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'messages', filter: `session_id=eq.${sessionId}` }, payload => {
-        setMessages(prev => [...prev, payload.new]);
-      })
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'messages', filter: `session_id=eq.${sessionId}` },
+        payload => {
+          if (!payload.new.resposta) {
+            setMessages(prev => [...prev, payload.new]);
+          }
+        }
+      )
       .subscribe();
 
     return () => supabase.removeChannel(sub);
@@ -61,7 +82,9 @@ export default function TempChatWidget() {
 
   const iniciarChat = () => {
     if (!nome || !empresa || !whatsapp) return;
-    setSessionId(uuidv4());
+    const newSessionId = uuidv4();
+    setSessionId(newSessionId);
+    localStorage.setItem('chatSessionId', newSessionId);
     setStarted(true);
   };
 
@@ -73,17 +96,20 @@ export default function TempChatWidget() {
       nome,
       empresa,
       whatsapp,
-      mensagem: currentMessage
+      mensagem: currentMessage,
+      criado_em: new Date().toISOString(),
+      lida: false
     };
 
     setMessages(prev => [...prev, msgObj]);
+    setCurrentMessage('');
 
     if (!adminOnline) {
-      setMessages(prev => [...prev, { mensagem: 'Admin está offline. Sua mensagem foi salva e será respondida via WhatsApp.', aviso: true }]);
+      setMessages(prev => [...prev, { mensagem: 'Admin está offline. Sua mensagem foi salva.', aviso: true, criado_em: new Date().toISOString() }]);
     }
 
-    await supabase.from('messages').insert([msgObj]);
-    setCurrentMessage('');
+    const { error } = await supabase.from('messages').insert([msgObj]);
+    if (error) console.log('Erro ao enviar mensagem:', error);
   };
 
   return (
@@ -95,77 +121,63 @@ export default function TempChatWidget() {
             Informe seu nome, empresa e WhatsApp para iniciar o chat
           </p>
 
-          <input
-            placeholder="Nome"
-            value={nome}
-            onChange={e => setNome(e.target.value)}
-            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40"
-          />
-          <input
-            placeholder="Empresa"
-            value={empresa}
-            onChange={e => setEmpresa(e.target.value)}
-            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40"
-          />
-          <input
-            placeholder="WhatsApp"
-            value={whatsapp}
-            onChange={e => setWhatsapp(e.target.value)}
-            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-6 focus:outline-none focus:ring-2 focus:ring-white/40"
-          />
+          <input placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)}
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40" />
+          <input placeholder="Empresa" value={empresa} onChange={e => setEmpresa(e.target.value)}
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40" />
+          <input placeholder="WhatsApp" value={whatsapp} onChange={e => setWhatsapp(e.target.value)}
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-6 focus:outline-none focus:ring-2 focus:ring-white/40" />
 
-          <button
-            onClick={iniciarChat}
-            className="w-full bg-white text-black font-semibold py-3 rounded-xl hover:bg-gray-200 transition"
-          >
+          <button onClick={iniciarChat}
+            className="w-full bg-white text-black font-semibold py-3 rounded-xl hover:bg-gray-200 transition">
             Iniciar Chat
           </button>
         </div>
       ) : (
         <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '80vh',
-          width: '100%',
-          maxWidth: '500px',
-          margin: '0 auto',
-          backgroundColor: '#fafafa',
-          color: '#000',
-          border: '1px solid #ccc',
-          borderRadius: '10px',
-          padding: '1rem'
+          display: 'flex', flexDirection: 'column', height: '80vh', width: '100%',
+          maxWidth: '500px', margin: '0 auto', backgroundColor: '#fafafa',
+          color: '#000', border: '1px solid #ccc', borderRadius: '10px', padding: '0'
         }}>
-          <div style={{ marginBottom: '0.5rem' }}>Chat {adminOnline ? '🟢 Online' : '🔴 Offline'}</div>
-          <div style={{ flex: 1, overflowY: 'auto', marginBottom: '0.5rem' }}>
+          {/* Header tipo WhatsApp */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '0.5rem',
+            padding: '0.5rem 1rem', backgroundColor: '#f0f0f0', borderBottom: '1px solid #ccc'
+          }}>
+            <Image src="/profile.png" alt="Gris Ayumi" width={40} height={40} className="rounded-full" />
+            <div>
+              <div style={{ fontWeight: 'bold' }}>Gris Ayumi</div>
+              <div style={{ fontSize: '0.8rem', color: '#555' }}>Designer e Desenvolvedora</div>
+            </div>
+          </div>
+
+          <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
             {messages.length === 0 && <p>Nenhuma mensagem ainda.</p>}
             {messages.map((msg, idx) => (
               <div key={idx} style={{
                 marginBottom: '0.5rem',
                 maxWidth: '80%',
-                alignSelf: msg.aviso ? 'center' : (msg.resposta ? 'flex-start' : 'flex-end'),
-                background: msg.aviso ? '#ffeb99' : (msg.resposta ? '#d0e6ff' : '#a0ffa0'),
+                alignSelf: msg.aviso ? 'center' : (msg.nome === 'Admin' ? 'flex-start' : 'flex-end'),
+                background: msg.aviso ? '#ffeb99' : (msg.nome === 'Admin' ? '#d0e6ff' : '#a0ffa0'),
                 padding: '0.5rem',
                 borderRadius: '10px',
                 color: '#000',
                 wordBreak: 'break-word',
                 textAlign: msg.aviso ? 'center' : 'left'
               }}>
-                {msg.aviso ? msg.mensagem : (<><b>{msg.nome}:</b> {msg.mensagem}</>)}
-                {msg.resposta && <p style={{ color: 'blue', margin: 0 }}><b>Admin:</b> {msg.resposta}</p>}
+                {msg.aviso ? msg.mensagem : (<><b>{msg.nome}:</b> {msg.mensagem} {msg.lida && <span style={{marginLeft:'4px', color:'blue'}}>✓✓</span>}</>)}
+                <div style={{ fontSize: '0.7rem', color: '#555' }}>{new Date(msg.criado_em).toLocaleString()}</div>
               </div>
             ))}
             <div ref={messagesEndRef} />
           </div>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <input
-              type="text"
-              placeholder="Digite sua mensagem..."
-              value={currentMessage}
-              onChange={e => setCurrentMessage(e.target.value)}
+          <div style={{ display: 'flex', gap: '0.5rem', padding: '0.5rem 1rem', borderTop: '1px solid #ccc' }}>
+            <input type="text" placeholder="Digite sua mensagem..." value={currentMessage} onChange={e => setCurrentMessage(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') handleSendMessage(); }}
-              style={{ flex: 1, padding: '0.5rem', borderRadius: '8px', border: '1px solid #ccc' }}
-            />
-            <button onClick={handleSendMessage} style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>Enviar</button>
+              style={{ flex: 1, padding: '0.5rem', borderRadius: '8px', border: '1px solid #ccc' }} />
+            <button onClick={handleSendMessage} style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}> <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+      <path d="M2.01 21l20.99-9L2.01 3v7l15 2-15 2z"/>
+    </svg></button>
           </div>
         </div>
       )}

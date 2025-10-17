@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import ParticlesOverlay from './components/ParticlesOverlay';
 import AnimatedPage from './components/AnimatedPage';
 import { motion, useViewportScroll, useTransform } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import StaffWrapper from './components/StaffWrapper';
 
 export default function RootLayout({ children }) {
   const { scrollY } = useViewportScroll();
@@ -22,10 +22,18 @@ export default function RootLayout({ children }) {
         className="
           relative min-h-screen overflow-x-hidden text-white antialiased
         "
-      >        <Header />
+      >        
+      <StaffWrapper/>
+      <Header />
 
         <main className="relative z-10 flex-1">
+              <StaffWrapper/>
+
           <AnimatedPage>{children}</AnimatedPage>
+
+            
+
+
         </main>
 
         <Footer />
