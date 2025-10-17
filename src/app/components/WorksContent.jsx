@@ -89,7 +89,7 @@ export default function WorksContent() {
             'fty.png',
             'hnn.png',
             'htg.png',
-            'ord.png',
+            'orn.png',
             'red.jpg',
             'rst1.png',
             'sin.png',

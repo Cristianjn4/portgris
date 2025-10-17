@@ -1,10 +1,9 @@
-'use client';
 import React from 'react';
 import AdminDashboard from '../components/AdminDashboard';
 
 export default function Adm() {
   return (
-    <div style={{ padding: '1rem' }}>
+    <div>
       <h1>Dashboard Admin</h1>
       <AdminDashboard />
     </div>
