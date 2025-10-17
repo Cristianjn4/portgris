@@ -118,7 +118,7 @@ export default function TempChatWidget() {
         <div className="flex flex-col items-center justify-center bg-gradient-to-br e to-stone-400 rounded-2xl p-8 shadow-xl backdrop-blur-md max-w-md mx-auto">
           <h2 className="text-3xl font-bold mb-6 text-white text-center">CONTATO</h2>
           <p className="text-gray-300 text-center mb-8">
-            Informe seu nome, empresa e WhatsApp para iniciar o chat
+            Informe seu nome, empresa e WhatsApp para iniciar o chat ao-vivo.
           </p>
 
           <input placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)}
@@ -130,7 +130,7 @@ export default function TempChatWidget() {
 
           <button onClick={iniciarChat}
             className="w-full bg-white text-black font-semibold py-3 rounded-4xl hover:bg-gray-200 transition">
-            Iniciar Chat
+            Iniciar Live Chat 🔴
           </button>
         </div>
       ) : (
