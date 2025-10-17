@@ -2,7 +2,7 @@ import AboutContent from '../components/AboutContent'; // componente cliente
 import Rating from '../components/Rating';
 
 export const metadata = {
-  title: 'About',
+  title: 'Sobre | Conheça Gris!',
   description: 'Sobre nós',
 };
 

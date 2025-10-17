@@ -1,6 +1,10 @@
-'use client';
 import React from 'react';
 import TempChatWidget from '../components/TempChatWidget';
+
+export const metadata = {
+  title: 'CHAT | Entre em contato de forma simplificada agora mesmo. ',
+  description: 'Trabalhos',
+};
 
 export default function Xet() {
   return (
