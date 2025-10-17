@@ -59,10 +59,15 @@ export default function TempChatWidget() {
     return () => supabase.removeChannel(sub);
   }, [sessionId]);
 
+  const iniciarChat = () => {
+    if (!nome || !empresa || !whatsapp) return;
+    setSessionId(uuidv4());
+    setStarted(true);
+  };
+
   const handleSendMessage = async () => {
     if (!currentMessage.trim()) return;
 
-    // Cria objeto da mensagem
     const msgObj = {
       session_id: sessionId,
       nome,
@@ -71,67 +76,99 @@ export default function TempChatWidget() {
       mensagem: currentMessage
     };
 
-    // Mostra imediatamente no chat do usuário
     setMessages(prev => [...prev, msgObj]);
 
     if (!adminOnline) {
-      // Se offline, aviso
-      setMessages(prev => [...prev, { mensagem: 'Admin está offline. Sua mensagem foi salva e será respondida pelo seu Whatzapp.', aviso: true }]);
+      setMessages(prev => [...prev, { mensagem: 'Admin está offline. Sua mensagem foi salva e será respondida via WhatsApp.', aviso: true }]);
     }
 
-    // Salva no Supabase
     await supabase.from('messages').insert([msgObj]);
     setCurrentMessage('');
   };
 
-  if (!started) {
-    return (
-      <div style={{ padding: '1rem', color: '#000' }}>
-        <h3>Informe seu nome, empresa e WhatsApp para iniciar o chat</h3>
-        <input placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)} style={{ display: 'block', marginBottom: '0.5rem', padding: '0.5rem', width: '100%' }} />
-        <input placeholder="Empresa" value={empresa} onChange={e => setEmpresa(e.target.value)} style={{ display: 'block', marginBottom: '0.5rem', padding: '0.5rem', width: '100%' }} />
-        <input placeholder="WhatsApp" value={whatsapp} onChange={e => setWhatsapp(e.target.value)} style={{ display: 'block', marginBottom: '0.5rem', padding: '0.5rem', width: '100%' }} />
-        <button onClick={() => { if (!nome || !empresa || !whatsapp) return; setSessionId(uuidv4()); setStarted(true); }} style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>
-          Iniciar Chat
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '80vh', width: '100%', maxWidth: '500px', margin: '0 auto', backgroundColor: '#fafafa', color: '#000', border: '1px solid #ccc', borderRadius: '10px', padding: '1rem' }}>
-      <div style={{ marginBottom: '0.5rem' }}>Chat {adminOnline ? '🟢 Online' : '🔴 Offline'}</div>
-      <div style={{ flex: 1, overflowY: 'auto', marginBottom: '0.5rem' }}>
-        {messages.length === 0 && <p>Nenhuma mensagem ainda.</p>}
-        {messages.map((msg, idx) => (
-          <div key={idx} style={{
-            marginBottom: '0.5rem',
-            maxWidth: '80%',
-            alignSelf: msg.aviso ? 'center' : (msg.resposta ? 'flex-start' : 'flex-end'),
-            background: msg.aviso ? '#ffeb99' : (msg.resposta ? '#d0e6ff' : '#a0ffa0'),
-            padding: '0.5rem',
-            borderRadius: '10px',
-            color: '#000',
-            wordBreak: 'break-word',
-            textAlign: msg.aviso ? 'center' : 'left'
-          }}>
-            {msg.aviso ? msg.mensagem : (<><b>{msg.nome}:</b> {msg.mensagem}</>)}
-            {msg.resposta && <p style={{ color: 'blue', margin: 0 }}><b>Admin:</b> {msg.resposta}</p>}
+    <>
+      {!started ? (
+        <div className="flex flex-col items-center justify-center min-h-[80vh] bg-gradient-to-br from-[#1a1a1a]/80 to-[#000000]/80 rounded-2xl p-8 shadow-xl backdrop-blur-md max-w-md mx-auto">
+          <h2 className="text-3xl font-semibold mb-6 text-white text-center">CONTATO</h2>
+          <p className="text-gray-300 text-center mb-8">
+            Informe seu nome, empresa e WhatsApp para iniciar o chat
+          </p>
+
+          <input
+            placeholder="Nome"
+            value={nome}
+            onChange={e => setNome(e.target.value)}
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40"
+          />
+          <input
+            placeholder="Empresa"
+            value={empresa}
+            onChange={e => setEmpresa(e.target.value)}
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40"
+          />
+          <input
+            placeholder="WhatsApp"
+            value={whatsapp}
+            onChange={e => setWhatsapp(e.target.value)}
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-6 focus:outline-none focus:ring-2 focus:ring-white/40"
+          />
+
+          <button
+            onClick={iniciarChat}
+            className="w-full bg-white text-black font-semibold py-3 rounded-xl hover:bg-gray-200 transition"
+          >
+            Iniciar Chat
+          </button>
+        </div>
+      ) : (
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '80vh',
+          width: '100%',
+          maxWidth: '500px',
+          margin: '0 auto',
+          backgroundColor: '#fafafa',
+          color: '#000',
+          border: '1px solid #ccc',
+          borderRadius: '10px',
+          padding: '1rem'
+        }}>
+          <div style={{ marginBottom: '0.5rem' }}>Chat {adminOnline ? '🟢 Online' : '🔴 Offline'}</div>
+          <div style={{ flex: 1, overflowY: 'auto', marginBottom: '0.5rem' }}>
+            {messages.length === 0 && <p>Nenhuma mensagem ainda.</p>}
+            {messages.map((msg, idx) => (
+              <div key={idx} style={{
+                marginBottom: '0.5rem',
+                maxWidth: '80%',
+                alignSelf: msg.aviso ? 'center' : (msg.resposta ? 'flex-start' : 'flex-end'),
+                background: msg.aviso ? '#ffeb99' : (msg.resposta ? '#d0e6ff' : '#a0ffa0'),
+                padding: '0.5rem',
+                borderRadius: '10px',
+                color: '#000',
+                wordBreak: 'break-word',
+                textAlign: msg.aviso ? 'center' : 'left'
+              }}>
+                {msg.aviso ? msg.mensagem : (<><b>{msg.nome}:</b> {msg.mensagem}</>)}
+                {msg.resposta && <p style={{ color: 'blue', margin: 0 }}><b>Admin:</b> {msg.resposta}</p>}
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
           </div>
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
-      <div style={{ display: 'flex', gap: '0.5rem' }}>
-        <input
-          type="text"
-          placeholder="Digite sua mensagem..."
-          value={currentMessage}
-          onChange={e => setCurrentMessage(e.target.value)}
-          onKeyDown={e => { if (e.key === 'Enter') handleSendMessage(); }}
-          style={{ flex: 1, padding: '0.5rem', borderRadius: '8px', border: '1px solid #ccc' }}
-        />
-        <button onClick={handleSendMessage} style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>Enviar</button>
-      </div>
-    </div>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <input
+              type="text"
+              placeholder="Digite sua mensagem..."
+              value={currentMessage}
+              onChange={e => setCurrentMessage(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') handleSendMessage(); }}
+              style={{ flex: 1, padding: '0.5rem', borderRadius: '8px', border: '1px solid #ccc' }}
+            />
+            <button onClick={handleSendMessage} style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>Enviar</button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
