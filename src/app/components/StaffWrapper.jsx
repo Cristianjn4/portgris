@@ -34,8 +34,8 @@ export default function StaffWrapper({ children }) {
         title="Área de staff"
         style={{
           position: 'fixed',
-          top: '1rem',
-          right: '1rem',
+          bottom: '1rem',
+          left: '1rem',
           width: '45px',
           height: '45px',
           borderRadius: '50%',
