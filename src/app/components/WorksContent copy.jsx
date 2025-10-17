@@ -119,6 +119,9 @@ export default function WorksContent() {
           VER MAIS
         </button>
       </footer>
+              {/* Painel de avaliação para dar voto */}
+      <Rating />
+
     </main>
   );
 }

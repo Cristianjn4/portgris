@@ -1,39 +1,54 @@
 'use client';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+
 
 export default function WorksContent() {
   const categorias = ['Logos', 'Postagens', 'Banners', 'Offline', 'Projetos'];
 
-  // Mock de posts original (mantido)
-  const posts = Array.from({ length: 9 }).map((_, i) => ({
-    id: i,
-    titulo: `Projeto ${i + 1}`,
-    img: `/posts/a${(i % 6) + 1}.png`,
-    desc: 'Projeto Figet Toys - Anchieta.',
-  }));
-
-  const [scrollPos, setScrollPos] = useState(0);
-  const scroll = (dir) => {
-    const container = document.getElementById('carousel');
-    const width = container.offsetWidth;
-    const newScroll = dir === 'left' ? scrollPos - width : scrollPos + width;
-    container.scrollTo({ left: newScroll, behavior: 'smooth' });
-    setScrollPos(newScroll);
-  };
-
-  // === NOVO: POSTS DINÂMICOS ===
   const postsData = [
-    { prefix: 'a', title: 'Anchieta', qty: 8, format: 'png' },
     { prefix: 'dn', title: 'Dan Terceirizações', qty: 15, format: 'jpg' },
-    { prefix: 'd', title: 'DWGA', qty: 8, format: 'jpeg' },
     { prefix: 'ph', title: 'Pharmaó', qty: 13, format: 'jpg' },
     { prefix: 'pl', title: 'Polo Cervejeiro', qty: 6, format: 'webp' },
-    { prefix: 'rc', title: 'REC', qty: 3, format: 'jpg' },
+    { prefix: 'd', title: 'DWGA', qty: 8, format: 'jpeg' },
+    { prefix: 'a', title: 'Anchieta', qty: 8, format: 'png' },
     { prefix: 's', title: 'Simmons', qty: 5, format: 'png' },
+    { prefix: 'rc', title: 'REC', qty: 3, format: 'jpg' },
     { prefix: 'sc', title: 'Scatt Bikes', qty: 2, format: 'jpg' },
   ];
+
+  const scrollRefs = useRef([]);
+  const [popup, setPopup] = useState({ open: false, src: '', alt: '' });
+
+  const scroll = (index, dir) => {
+    const container = scrollRefs.current[index];
+    if (!container) return;
+    const width = container.offsetWidth;
+    const newScroll = dir === 'left' ? container.scrollLeft - width : container.scrollLeft + width;
+    container.scrollTo({ left: newScroll, behavior: 'smooth' });
+  };
+
+  // Fecha popup ao apertar ESC
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') setPopup({ open: false, src: '', alt: '' });
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
+  const openPopup = (src, alt) => setPopup({ open: true, src, alt });
+  const closePopup = () => setPopup({ open: false, src: '', alt: '' });
+
+  // Scroll suave para categorias
+  const handleCategoryClick = (cat) => {
+    let targetId = '';
+    if (cat === 'Logos') targetId = 'logos';
+    else if (cat === 'Postagens') targetId = 'postagens';
+    const section = document.getElementById(targetId);
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <main className="lg:mt-14 mt-0 w-full overflow-x-hidden">
@@ -51,8 +66,8 @@ export default function WorksContent() {
           animate={{ opacity: 1, y: 0 }}
           className="relative text-7xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold tracking-wide text-white -z-10 lg:z-10 drop-shadow-[0_4px_10px_rgba(255,255,255,0.15)]"
         >
-          <p className="hidden pt-10 lg:block"> TRABALHOS </p>
-          <p className="block text-left lg:hidden">
+          <p className="relative z-10 lg:text-50 text-5xl  md:text-9xl font-extrabold text-white text-center tracking-widest drop-shadow-lg text-shadow-pink-500 text-shadow-lg mb-4 hidden pt-10 lg:block"> TRABALHOS </p>
+          <p className="block text-left lg:hidden tracking-widest drop-shadow-lg text-shadow-pink-500 text-shadow-lg ">
             TRABA <br /> LHOS
           </p>
         </motion.h1>
@@ -69,6 +84,7 @@ export default function WorksContent() {
             <button
               key={i}
               className="px-4 py-2 whitespace-nowrap bg-white text-black rounded-full hover:bg-pink-400 hover:text-white transition duration-200 flex-shrink-0"
+              onClick={() => handleCategoryClick(cat)}
             >
               {cat}
             </button>
@@ -77,7 +93,7 @@ export default function WorksContent() {
       </section>
 
       {/* === LOGOTIPOS === */}
-      <section className="w-full bg-[#0b0018a4] text-center py-20 rounded-b-4xl">
+      <section id="logos" className="w-full text-center py-20 rounded-b-4xl">
         <h2 className="text-white text-2xl font-bold tracking-widest mb-10">
           LOGOTIPOS
         </h2>
@@ -108,56 +124,135 @@ export default function WorksContent() {
           ))}
         </div>
 
-        <button className="text-white border border-white rounded-full px-6 py-2 m-10 hover:bg-white hover:text-[#0B0018] transition">
-          VER MAIS
-        </button>
+        <a
+  href="https://drive.google.com/drive/folders/1vZ6mK0DOgmeG5-SV5y6fbHYtyPmxv9Sp?usp=sharing"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-white border border-white rounded-full px-6 py-2 m-10 hover:bg-white hover:text-[#0B0018] transition inline-block text-center"
+>
+  VER MAIS
+</a>
+      </section>
 
-        {/* === POSTAGENS DINÂMICAS === */}
+      {/* === POSTAGENS DINÂMICAS === */}
+
+      <section id="postagens" className="w-full text-center rounded-b-4xl">
+
+        <h2 className="text-white text-2xl font-bold tracking-widest mb-10">
+          POSTAGENS
+        </h2>
         {postsData.map(({ prefix, title, qty, format }, index) => (
-          <div key={index} className="mb-16 px-6">
+          <div key={index} className="mb-16 px-6 relative">
             <h3 className="text-white text-lg font-semibold mb-4">
               {title} ({qty})
             </h3>
 
-            <div className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scroll-smooth">
-              {Array.from({ length: qty }).map((_, i) => (
-                <div
-                  key={i}
-                  className="snap-center flex-shrink-0 bg-[#1A0026]/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] p-4 w-[80%] sm:w-[45%] md:w-[30%] transition-all duration-500"
-                >
-                  <img
-                    src={`/posts/${prefix}${i + 1}.${format}`}
-                    alt={`${title} ${i + 1}`}
-                    className="rounded-xl w-full h-40 object-cover"
-                  />
-                  <h3 className="font-semibold mt-4 text-white">
-                    {title} {i + 1}
-                  </h3>
-                  <p className="text-sm text-gray-300 mt-2">
-                    Projeto realizado para {title}.
-                  </p>
-                </div>
-              ))}
+            {/* Botões de navegação */}
+            <button
+              onClick={() => scroll(index, 'left')}
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full z-20"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={() => scroll(index, 'right')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full z-20"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            <div
+              ref={(el) => (scrollRefs.current[index] = el)}
+              className="flex gap-6 pb-4 snap-x snap-mandatory scroll-smooth overflow-hidden"
+            >
+              {Array.from({ length: qty }).map((_, i) => {
+                const src = `/posts/${prefix}${i + 1}.${format}`;
+                return (
+                  <div
+                    key={i}
+                    className="snap-center flex-shrink-0 bg-[#1A0026]/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.05)] p-4 transition-all duration-500 inline-flex flex-col items-center cursor-pointer"
+                    onClick={() => openPopup(src, `${title} ${i + 1}`)}
+                  >
+                    <img
+                      src={src}
+                      alt={`${title} ${i + 1}`}
+                      className="rounded-xl w-auto h-40 max-w-full object-cover"
+                    />
+                    <h3 className="font-semibold mt-4 text-white">
+                      {title} {i + 1}
+                    </h3>
+                    <p className="text-sm text-gray-300 mt-2">
+                      Projeto realizado para {title}.
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         ))}
 
-        {/* Botão "Ver Mais" */}
-        <button className="text-white border border-white rounded-full px-6 py-2 hover:bg-white hover:text-[#0B0018] transition">
-          VER MAIS
-        </button>
+        <a
+  href="https://drive.google.com/drive/folders/1DTqEBr_TUlvTRCT7GHzJ6C4S68G-RX88?usp=drive_link"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-white border border-white rounded-full px-6 py-2 mb-10 hover:bg-white hover:text-[#0B0018] transition inline-block text-center"
+>
+  VER MAIS
+</a>
       </section>
 
+      {/* === POPUP LIGHTBOX ANIMADO === */}
+      <AnimatePresence>
+        {popup.open && (
+          <motion.div
+            key="popup"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
+            onClick={closePopup}
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              transition={{ duration: 0.3 }}
+              className="relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={popup.src}
+                alt={popup.alt}
+                className="max-h-[70vh] max-w-[70vw] rounded-xl shadow-2xl"
+              />
+              <button
+                onClick={closePopup}
+                className="absolute top-4 right-4 bg-white/20 hover:bg-white/50 text-white p-2 rounded-full"
+              >
+                <X size={24} />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* === FINAL === */}
-      <footer className="bg-[#08000F] py-10 text-center rounded-3xl lg:rounded-full my-10">
-        <h3 className="font-bold text-lg">OBRIGADA POR CHEGAR ATÉ AQUI 🌙</h3>
-        <p className="text-gray-400 text-sm mt-2">
+      <footer className="bg-[#ffffff] py-10 px-2 text-center rounded-2xl lg:rounded-full my-10">
+        <h3 className="font-bold text-black text-lg">OBRIGADA POR CHEGAR ATÉ AQUI 🌙</h3>
+        <p className="text-black text-sm mb-8">
           Veja todos os trabalhos no meu portfólio completo.
         </p>
-        <button className="mt-4 px-6 py-2 border font-medium border-white bg-pink-600 rounded-full hover:bg-[#3e1a58] transition">
+        <a className=" w-auto px-6 py-2 border font-medium border-white bg-pink-600 rounded-full hover:bg-[#3e1a58] transition" href="https://drive.google.com/drive/folders/1TCRWErYp-pcSi8GbOOaFM50Oh2LDXSk-?usp=drive_link"
+  target="_blank"
+  rel="noopener noreferrer">
           VER MAIS
-        </button>
+        </a>
+
+        
+
+ 
       </footer>
+
     </main>
   );
 }

@@ -179,11 +179,11 @@ Acredito em criar com propósito, sentir antes de executar e ouvir antes de dese
         <h2 className="relative z-10 lg:text-50 text-5xl  md:text-9xl font-extrabold text-white text-center tracking-widest drop-shadow-lg text-shadow-pink-500 text-shadow-lg">CARREIRA</h2>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-0 text-center lg:text-left">
+      <div className="max-w-5xl mx-auto px-4 sm:px-0 text-center justify-center lg:text-left">
   <h2 className="text-3xl lg:text-4xl font-extrabold text-white mb-4">
     Minha Jornada Criativa
   </h2>
-  <p className="text-white text-lg lg:text-xl leading-relaxed text-justify">
+  <p className="text-white text-lg lg:text-xl leading-relaxed text:left lg:text-justify">
     De 2018 a 2025, eu, Gris Ayumi Mariano, desenvolvi minha carreira em audiovisual, design e tecnologia, criando projetos como ReadMee! e Hanni Yummi Café, atuando em design gráfico, marketing digital e educação, e consolidando minha identidade visual e sensibilidade estética. 10 negócios foram tranformados com minhas criações e centenas de peças foram produzidas e publicadas, melhorando e evoluindo a comuicação de empresas tranto organicamente quanto no meio digital!
   </p>
 </div>
@@ -327,7 +327,35 @@ Acredito em criar com propósito, sentir antes de executar e ouvir antes de dese
         </div>
       </div>
 
-      {/* Botão de contato */} <button target="_blank" className="flex items-center justify-center border border-white rounded-full px-6 py-3 mx-auto m-2 hover:bg-white hover:text-black transition"> <PaperAirplaneIcon className="h-5 w-5 mr-2" /> <a target="_blank" href="https://wa.me/5511963241576?text=Ol%C3%A1%2C%20me%20interessei%20por%20seus%20trabalhos."> SABER MAIS </a> </button> {/* Final da página */} <div className="flex flex-col items-center mt-24 text-center"> <p className="text-white text-8xl font-black mt-2">THA<br />NK-<br />YOU</p> <motion.img src="/G6-1.webp" alt="Imagem Final" className="w-full sm:w-[300px] object-cover rounded-t-xl mx-auto mt-8" initial={{ scale: 1 }} whileHover={{ scale: 1.05 }} transition={{ duration: 0.5, ease: 'easeOut' }} /> </div>
+{/* Botão de contato */}
+<a
+  href="/cvv.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center justify-center border w-72 border-pink-500 rounded-full px-6 py-3 mx-auto m-2 hover:bg-white hover:text-black transition"
+>
+  <PaperAirplaneIcon className="h-5 w-5 mr-2" />
+  ANALISAR CURRÍCULO
+</a>
+
+{/* Final da página */}
+<div className="flex flex-col items-center mt-24 text-center">
+  <p className="text-white text-8xl font-black mt-2">
+    THA
+    <br />
+    NK-
+    <br />
+    YOU
+  </p>
+  <motion.img
+    src="/G6-1.webp"
+    alt="Imagem Final"
+    className="w-full sm:w-[300px] object-cover rounded-t-xl mx-auto mt-8"
+    initial={{ scale: 1 }}
+    whileHover={{ scale: 1.05 }}
+    transition={{ duration: 0.5, ease: 'easeOut' }}
+  />
+</div>
      
      
      

@@ -115,21 +115,21 @@ export default function TempChatWidget() {
   return (
     <>
       {!started ? (
-        <div className="flex flex-col items-center justify-center min-h-[80vh] bg-gradient-to-br from-[#1a1a1a]/80 to-[#000000]/80 rounded-2xl p-8 shadow-xl backdrop-blur-md max-w-md mx-auto">
-          <h2 className="text-3xl font-semibold mb-6 text-white text-center">CONTATO</h2>
+        <div className="flex flex-col items-center justify-center bg-gradient-to-br e to-stone-400 rounded-2xl p-8 shadow-xl backdrop-blur-md max-w-md mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-white text-center">CONTATO</h2>
           <p className="text-gray-300 text-center mb-8">
             Informe seu nome, empresa e WhatsApp para iniciar o chat
           </p>
 
           <input placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)}
-            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40" />
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-4xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40" />
           <input placeholder="Empresa" value={empresa} onChange={e => setEmpresa(e.target.value)}
-            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40" />
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-4xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-white/40" />
           <input placeholder="WhatsApp" value={whatsapp} onChange={e => setWhatsapp(e.target.value)}
-            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-xl px-4 py-3 mb-6 focus:outline-none focus:ring-2 focus:ring-white/40" />
+            className="w-full bg-white/10 text-white placeholder-gray-400 border border-white/20 rounded-4xl px-4 py-3 mb-6 focus:outline-none focus:ring-2 focus:ring-white/40" />
 
           <button onClick={iniciarChat}
-            className="w-full bg-white text-black font-semibold py-3 rounded-xl hover:bg-gray-200 transition">
+            className="w-full bg-white text-black font-semibold py-3 rounded-4xl hover:bg-gray-200 transition">
             Iniciar Chat
           </button>
         </div>

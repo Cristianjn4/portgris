@@ -1,4 +1,4 @@
-import Start from './components/Start';
+import Start from './components/Start.jsx';
 
 export const metadata = {
   title: 'Home | Portifólio Interativo'

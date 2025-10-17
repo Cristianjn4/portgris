@@ -1,18 +1,22 @@
 'use client';
 import { useRef, useState } from 'react';
+import Rating from './Rating';
+import RatingCount from './RatingCount';
+import { supabase } from './supabaseClient';
+
 
 export default function Start() {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const itemId = 'video1'; // id único do vídeo
 
   const handleClick = () => {
     if (videoRef.current) {
       if (!isPlaying) {
-        videoRef.current.currentTime = 0; // reinicia
+        videoRef.current.currentTime = 0;
         videoRef.current.play();
         setIsPlaying(true);
 
-        // Quando o vídeo terminar, volta ao frame inicial
         videoRef.current.onended = () => {
           videoRef.current.currentTime = 0;
           setIsPlaying(false);
@@ -45,6 +49,10 @@ export default function Start() {
             className="w-full h-full object-cover rounded-full bg-amber-50"
           />
         </div>
+
+
+      {/* Componente mostrando média e total */}
+      <RatingCount />
       </div>
     </main>
   );
