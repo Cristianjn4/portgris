@@ -21,7 +21,7 @@ export default function WorksContent() {
     { prefix: 'or', title: 'Casa Orner', qty: 10, format: 'png' },
     { prefix: 'sn', title: 'Simmons', qty: 9, format: 'jpg' },
     { prefix: 'rt', title: 'Restonic', qty: 4, format: 'png' },
-    { prefix: 'hs', title: 'Hashtag Academia', qty: 1, format: 'png' },
+    { prefix: 'hs', title: 'Hashtag Academia', qty: 7, format: 'png' },
   ];
 
   const scrollRefs = useRef([]);
